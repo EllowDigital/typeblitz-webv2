@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, Menu, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +15,8 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,9 +31,15 @@ const Navbar = () => {
   }, [scrolled]);
 
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+    if (isHomePage) {
+      // If on home page, scroll to the section
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // If on another page, navigate to home and then to the section
+      // We'll handle the scrolling after navigation in the Link component
       setMobileMenuOpen(false);
     }
   };
@@ -42,26 +50,44 @@ const Navbar = () => {
     }`}>
       <div className="container flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <div className="w-9 h-9 rounded-full bg-neon flex items-center justify-center">
-            <span className="text-black font-bold text-lg">TB</span>
-          </div>
-          <span className="text-xl font-bold">TypeBlitz</span>
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="w-9 h-9 rounded-full bg-neon flex items-center justify-center">
+              <span className="text-black font-bold text-lg">TB</span>
+            </div>
+            <span className="text-xl font-bold">TypeBlitz</span>
+          </Link>
         </div>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          <button onClick={() => scrollToSection('about')} className="text-sm text-muted-foreground hover:text-white transition-colors">About</button>
-          <button onClick={() => scrollToSection('features')} className="text-sm text-muted-foreground hover:text-white transition-colors">Features</button>
-          <button onClick={() => scrollToSection('screenshots')} className="text-sm text-muted-foreground hover:text-white transition-colors">Screenshots</button>
-          <button onClick={() => scrollToSection('download')} className="text-sm text-muted-foreground hover:text-white transition-colors">Download</button>
-          <button onClick={() => scrollToSection('contact')} className="text-sm text-muted-foreground hover:text-white transition-colors">Contact</button>
+          {isHomePage ? (
+            // If on home page, use smooth scroll
+            <>
+              <button onClick={() => scrollToSection('about')} className="text-sm text-muted-foreground hover:text-white transition-colors">About</button>
+              <button onClick={() => scrollToSection('features')} className="text-sm text-muted-foreground hover:text-white transition-colors">Features</button>
+              <button onClick={() => scrollToSection('screenshots')} className="text-sm text-muted-foreground hover:text-white transition-colors">Screenshots</button>
+              <button onClick={() => scrollToSection('download')} className="text-sm text-muted-foreground hover:text-white transition-colors">Download</button>
+              <button onClick={() => scrollToSection('contact')} className="text-sm text-muted-foreground hover:text-white transition-colors">Contact</button>
+            </>
+          ) : (
+            // If on other pages, use router links
+            <>
+              <Link to="/#about" className="text-sm text-muted-foreground hover:text-white transition-colors">About</Link>
+              <Link to="/#features" className="text-sm text-muted-foreground hover:text-white transition-colors">Features</Link>
+              <Link to="/#screenshots" className="text-sm text-muted-foreground hover:text-white transition-colors">Screenshots</Link>
+              <Link to="/#download" className="text-sm text-muted-foreground hover:text-white transition-colors">Download</Link>
+              <Link to="/#contact" className="text-sm text-muted-foreground hover:text-white transition-colors">Contact</Link>
+            </>
+          )}
         </nav>
         
         <div className="hidden md:flex items-center gap-4">
           <Button 
             variant="outline" 
             className="items-center gap-2 border-neon text-neon hover:bg-neon hover:text-black"
-            onClick={() => scrollToSection('download')}
+            onClick={() => isHomePage ? scrollToSection('download') : null}
+            as={isHomePage ? undefined : Link}
+            to={isHomePage ? undefined : "/#download"}
           >
             <Download className="w-4 h-4" />
             <span>Download v2.6</span>
@@ -85,21 +111,45 @@ const Navbar = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-60 bg-black/90 backdrop-blur-lg border border-neon/30">
-              <DropdownMenuItem onClick={() => scrollToSection('about')}>
-                About
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => scrollToSection('features')}>
-                Features
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => scrollToSection('screenshots')}>
-                Screenshots
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => scrollToSection('download')}>
-                Download
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => scrollToSection('contact')}>
-                Contact
-              </DropdownMenuItem>
+              {isHomePage ? (
+                // Mobile menu for home page
+                <>
+                  <DropdownMenuItem onClick={() => scrollToSection('about')}>
+                    About
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollToSection('features')}>
+                    Features
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollToSection('screenshots')}>
+                    Screenshots
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollToSection('download')}>
+                    Download
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollToSection('contact')}>
+                    Contact
+                  </DropdownMenuItem>
+                </>
+              ) : (
+                // Mobile menu for other pages
+                <>
+                  <DropdownMenuItem asChild>
+                    <Link to="/#about" onClick={() => setMobileMenuOpen(false)}>About</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/#features" onClick={() => setMobileMenuOpen(false)}>Features</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/#screenshots" onClick={() => setMobileMenuOpen(false)}>Screenshots</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/#download" onClick={() => setMobileMenuOpen(false)}>Download</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/#contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+                  </DropdownMenuItem>
+                </>
+              )}
               <DropdownMenuItem onClick={() => window.open("https://ellowdigitals.com", "_blank")}>
                 Visit EllowDigitals
               </DropdownMenuItem>

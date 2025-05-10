@@ -1,10 +1,12 @@
 
 import { useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 
 const Footer = () => {
   const footerRef = useRef<HTMLElement>(null);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,12 +38,12 @@ const Footer = () => {
       <div className="container px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div>
-            <div className="flex items-center mb-4">
+            <Link to="/" className="flex items-center mb-4">
               <div className="w-10 h-10 rounded-full bg-neon flex items-center justify-center mr-3">
                 <span className="text-black font-bold text-lg">TB</span>
               </div>
               <span className="text-xl font-medium">TypeBlitz</span>
-            </div>
+            </Link>
             <p className="text-sm text-muted-foreground mb-4">
               Elevate your typing speed and accuracy with TypeBlitz, the revolutionary typing improvement app designed for modern professionals.
             </p>
@@ -65,19 +67,39 @@ const Footer = () => {
             <h3 className="font-medium mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#about" className="text-sm text-muted-foreground hover:text-neon transition-colors">About</a>
+                {isHomePage ? (
+                  <a href="#about" className="text-sm text-muted-foreground hover:text-neon transition-colors">About</a>
+                ) : (
+                  <Link to="/#about" className="text-sm text-muted-foreground hover:text-neon transition-colors">About</Link>
+                )}
               </li>
               <li>
-                <a href="#features" className="text-sm text-muted-foreground hover:text-neon transition-colors">Features</a>
+                {isHomePage ? (
+                  <a href="#features" className="text-sm text-muted-foreground hover:text-neon transition-colors">Features</a>
+                ) : (
+                  <Link to="/#features" className="text-sm text-muted-foreground hover:text-neon transition-colors">Features</Link>
+                )}
               </li>
               <li>
-                <a href="#screenshots" className="text-sm text-muted-foreground hover:text-neon transition-colors">Screenshots</a>
+                {isHomePage ? (
+                  <a href="#screenshots" className="text-sm text-muted-foreground hover:text-neon transition-colors">Screenshots</a>
+                ) : (
+                  <Link to="/#screenshots" className="text-sm text-muted-foreground hover:text-neon transition-colors">Screenshots</Link>
+                )}
               </li>
               <li>
-                <a href="#download" className="text-sm text-muted-foreground hover:text-neon transition-colors">Download</a>
+                {isHomePage ? (
+                  <a href="#download" className="text-sm text-muted-foreground hover:text-neon transition-colors">Download</a>
+                ) : (
+                  <Link to="/#download" className="text-sm text-muted-foreground hover:text-neon transition-colors">Download</Link>
+                )}
               </li>
               <li>
-                <a href="#contact" className="text-sm text-muted-foreground hover:text-neon transition-colors">Contact</a>
+                {isHomePage ? (
+                  <a href="#contact" className="text-sm text-muted-foreground hover:text-neon transition-colors">Contact</a>
+                ) : (
+                  <Link to="/#contact" className="text-sm text-muted-foreground hover:text-neon transition-colors">Contact</Link>
+                )}
               </li>
             </ul>
           </div>
