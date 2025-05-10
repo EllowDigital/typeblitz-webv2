@@ -2,6 +2,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, FileUp, FilePlus, File, ShieldCheck, Check } from 'lucide-react';
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from "@/components/ui/tooltip";
 
 const Installation = () => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -79,21 +85,20 @@ const Installation = () => {
             <h3 className="text-lg font-medium mb-2">Step 4</h3>
             <p className="text-sm text-muted-foreground">
               Allow through antivirus — click "More Info" → "Run Anyway"
-              <div className="relative inline-block ml-1">
-                <button 
-                  className="text-neon hover:text-neon/80"
-                  onMouseEnter={() => setShowTooltip(true)}
-                  onMouseLeave={() => setShowTooltip(false)}
-                >
-                  ?
-                </button>
-                {showTooltip && (
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 glass p-3 rounded-lg w-60 text-xs z-10">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button 
+                      className="text-neon hover:text-neon/80 ml-1"
+                    >
+                      ?
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent className="w-60 p-3">
                     TypeBlitz might be flagged because it's not digitally signed, but it's completely safe and contains no malware.
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-2 h-2 rotate-45 bg-black/20 backdrop-blur-lg"></div>
-                  </div>
-                )}
-              </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </p>
           </div>
           
