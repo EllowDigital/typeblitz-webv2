@@ -43,9 +43,9 @@ export default {
         'popover-foreground': 'hsl(var(--popover-foreground))',
         card: 'hsl(var(--card))',
         'card-foreground': 'hsl(var(--card-foreground))',
-        neon: '#E6FF00',
-        dark: '#121212',
-        light: '#FFFFFF',
+        neon: '#007bff', // Changed from #E6FF00 to #007bff
+        dark: '#000000', // Changed to pure black
+        light: '#FFFFFF', // Pure white
       },
       borderRadius: {
         lg: 'var(--radius)',
