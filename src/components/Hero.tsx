@@ -58,10 +58,10 @@ const Hero = () => {
           <Button 
             variant="outline" 
             className="border-white/20 hover:bg-white/5 px-8 py-6 text-lg flex items-center gap-2"
-            onClick={() => window.open("https://ellowdigitals.com", "_blank")}
+            onClick={() => window.open("https://ellowdigitals.me", "_blank")}
           >
             <ExternalLink className="w-4 h-4" />
-            Visit EllowDigitals
+            Visit EllowDigital
           </Button>
         </div>
         

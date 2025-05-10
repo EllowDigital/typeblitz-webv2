@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, Menu, X } from 'lucide-react';
@@ -32,14 +31,11 @@ const Navbar = () => {
 
   const scrollToSection = (sectionId: string) => {
     if (isHomePage) {
-      // If on home page, scroll to the section
       const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      // If on another page, navigate to home and then to the section
-      // We'll handle the scrolling after navigation in the Link component
       setMobileMenuOpen(false);
     }
   };
@@ -49,19 +45,21 @@ const Navbar = () => {
       scrolled ? 'glass py-3' : 'bg-transparent py-5'
     }`}>
       <div className="container flex items-center justify-between">
+        {/* Logo and Brand */}
         <div className="flex items-center space-x-2">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-9 h-9 rounded-full bg-neon flex items-center justify-center">
-              <span className="text-black font-bold text-lg">TB</span>
-            </div>
-            <span className="text-xl font-bold">TypeBlitz</span>
+            <img
+              src="/images/TypeBlitz.png" // Update this path to your actual logo location
+              alt="TypeBlitz Logo"
+              className="w-9 h-9 object-contain rounded-full"
+            />
+            <span className="text-xl font-bold text-white">TypeBlitz</span>
           </Link>
         </div>
-        
+
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {isHomePage ? (
-            // If on home page, use smooth scroll
             <>
               <button onClick={() => scrollToSection('about')} className="text-sm text-muted-foreground hover:text-white transition-colors">About</button>
               <button onClick={() => scrollToSection('features')} className="text-sm text-muted-foreground hover:text-white transition-colors">Features</button>
@@ -70,7 +68,6 @@ const Navbar = () => {
               <button onClick={() => scrollToSection('contact')} className="text-sm text-muted-foreground hover:text-white transition-colors">Contact</button>
             </>
           ) : (
-            // If on other pages, use router links
             <>
               <Link to="/#about" className="text-sm text-muted-foreground hover:text-white transition-colors">About</Link>
               <Link to="/#features" className="text-sm text-muted-foreground hover:text-white transition-colors">Features</Link>
@@ -80,7 +77,8 @@ const Navbar = () => {
             </>
           )}
         </nav>
-        
+
+        {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-4">
           <Button 
             variant="outline" 
@@ -90,18 +88,18 @@ const Navbar = () => {
             to={isHomePage ? undefined : "/#download"}
           >
             <Download className="w-4 h-4" />
-            <span>Download v2.6</span>
+            <span>Download v1.4</span>
           </Button>
-          
+
           <Button 
             variant="ghost" 
             className="text-white hover:text-neon"
-            onClick={() => window.open("https://ellowdigitals.com", "_blank")}
+            onClick={() => window.open("https://ellowdigital.netlify.app/", "_blank")}
           >
-            EllowDigitals
+            EllowDigital
           </Button>
         </div>
-        
+
         {/* Mobile Navigation */}
         <div className="md:hidden flex items-center">
           <DropdownMenu open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -112,26 +110,14 @@ const Navbar = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-60 bg-black/90 backdrop-blur-lg border border-neon/30">
               {isHomePage ? (
-                // Mobile menu for home page
                 <>
-                  <DropdownMenuItem onClick={() => scrollToSection('about')}>
-                    About
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => scrollToSection('features')}>
-                    Features
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => scrollToSection('screenshots')}>
-                    Screenshots
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => scrollToSection('download')}>
-                    Download
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => scrollToSection('contact')}>
-                    Contact
-                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollToSection('about')}>About</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollToSection('features')}>Features</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollToSection('screenshots')}>Screenshots</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollToSection('download')}>Download</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollToSection('contact')}>Contact</DropdownMenuItem>
                 </>
               ) : (
-                // Mobile menu for other pages
                 <>
                   <DropdownMenuItem asChild>
                     <Link to="/#about" onClick={() => setMobileMenuOpen(false)}>About</Link>

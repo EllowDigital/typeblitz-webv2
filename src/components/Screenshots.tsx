@@ -3,24 +3,34 @@ import { useEffect, useRef, useState } from 'react';
 
 const screenshotData = [
   {
-    title: "Dashboard View",
-    description: "Monitor your progress with our comprehensive dashboard",
-    image: "https://placehold.co/600x400/222/E6FF00?text=Dashboard&font=montserrat"
+    title: "Dashboard Overview",
+    description: "Track your typing goals and progress at a glance.",
+    image: "/images/screenshots/dashboard.webp"
   },
   {
-    title: "Practice Mode",
-    description: "Focused typing exercises with real-time feedback",
-    image: "https://placehold.co/600x400/222/E6FF00?text=Practice&font=montserrat"
+    title: "Practice Mode: Words",
+    description: "Sharpen your typing skills with word-based exercises and real-time feedback.",
+    image: "/images/screenshots/practice-words.webp"
   },
   {
-    title: "Stats Overview",
-    description: "Detailed analytics of your typing performance",
+    title: "Practice Mode: Paragraphs",
+    description: "Improve flow and accuracy with paragraph-level practice.",
+    image: "/images/screenshots/practice-paragraph.webp"
+  },
+  {
+    title: "Performance Stats",
+    description: "View detailed analytics of your typing performance.",
     image: "https://placehold.co/600x400/222/E6FF00?text=Stats&font=montserrat"
   },
   {
-    title: "Settings Panel",
-    description: "Customize TypeBlitz to match your preferences",
-    image: "https://placehold.co/600x400/222/E6FF00?text=Settings&font=montserrat"
+    title: "Auto Update Check",
+    description: "Stay up to date effortlessly with a single click.",
+    image: "/images/screenshots/check-update.webp"
+  },
+  {
+    title: "Update Status Panel",
+    description: "Monitor update progress and version info with ease.",
+    image: "/images/screenshots/update-status.webp"
   }
 ];
 
@@ -38,11 +48,11 @@ const Screenshots = () => {
       },
       { threshold: 0.1 }
     );
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-    
+
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
@@ -59,8 +69,8 @@ const Screenshots = () => {
   };
 
   return (
-    <section 
-      id="screenshots" 
+    <section
+      id="screenshots"
       ref={sectionRef}
       className="section-padding relative opacity-0"
     >
@@ -71,12 +81,12 @@ const Screenshots = () => {
             Take a closer look at TypeBlitz's elegant and functional design
           </p>
         </div>
-        
+
         <div className="relative">
           <div className="glass rounded-2xl p-1 max-w-4xl mx-auto">
             <div className="relative rounded-xl overflow-hidden aspect-video">
-              <img 
-                src={screenshotData[activeIndex].image} 
+              <img
+                src={screenshotData[activeIndex].image}
                 alt={screenshotData[activeIndex].title}
                 className="w-full h-full object-cover transition-all duration-500"
               />
@@ -86,8 +96,8 @@ const Screenshots = () => {
               </div>
             </div>
           </div>
-          
-          <button 
+
+          <button
             onClick={handlePrev}
             className="absolute top-1/2 transform -translate-y-1/2 left-4 md:left-8 glass-card p-2 md:p-3 rounded-full z-10"
           >
@@ -95,8 +105,8 @@ const Screenshots = () => {
               <path d="M15 18l-6-6 6-6" />
             </svg>
           </button>
-          
-          <button 
+
+          <button
             onClick={handleNext}
             className="absolute top-1/2 transform -translate-y-1/2 right-4 md:right-8 glass-card p-2 md:p-3 rounded-full z-10"
           >
@@ -104,14 +114,13 @@ const Screenshots = () => {
               <path d="M9 18l6-6-6-6" />
             </svg>
           </button>
-          
+
           <div className="flex justify-center mt-6 space-x-3">
             {screenshotData.map((_, index) => (
-              <button 
+              <button
                 key={index}
-                className={`w-3 h-3 rounded-full transition-colors ${
-                  index === activeIndex ? 'bg-neon' : 'bg-white/20 hover:bg-white/40'
-                }`}
+                className={`w-3 h-3 rounded-full transition-colors ${index === activeIndex ? 'bg-neon' : 'bg-white/20 hover:bg-white/40'
+                  }`}
                 onClick={() => setActiveIndex(index)}
               >
                 <span className="sr-only">Screenshot {index + 1}</span>

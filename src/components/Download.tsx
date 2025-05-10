@@ -79,8 +79,8 @@ const Download = () => {
               </div>
             </div>
             
-            <h3 className="text-2xl font-bold text-center mb-2">TypeBlitz v2.6</h3>
-            <p className="text-center text-muted-foreground mb-1">Latest Release • May 10, 2025</p>
+            <h3 className="text-2xl font-bold text-center mb-2">TypeBlitz v1.4</h3>
+            <p className="text-center text-muted-foreground mb-1">Latest Release • May 11, 2025</p>
             <p className="text-center text-sm text-neon">100% Free | No Ads | No Subscription</p>
           </div>
           
@@ -90,16 +90,16 @@ const Download = () => {
               onClick={() => handleDownload("v2.6")}
             >
               <DownloadIcon className="w-5 h-5" />
-              Download v2.6
+              Download v1.4
             </Button>
             
-            <Button 
+            {/* <Button 
               variant="outline" 
               className="w-full border-white/20 hover:bg-white/5 py-6 text-lg"
               onClick={() => handleDownload("v2.4 (Stable)")}
             >
-              Download v2.4 (Stable)
-            </Button>
+              Download v1.6 (Stable)
+            </Button> */}
             
             <div className="pt-2">
               <Button 
@@ -113,8 +113,8 @@ const Download = () => {
               
               {showOlderVersions && (
                 <div className="mt-4 space-y-3 animate-fade-in">
-                  <div className="glass-card rounded-lg p-3 flex justify-between">
-                    <span>Version 2.2</span>
+                  {/* <div className="glass-card rounded-lg p-3 flex justify-between">
+                    <span>Version 1.4</span>
                     <Button 
                       variant="ghost" 
                       size="sm" 
@@ -123,9 +123,9 @@ const Download = () => {
                     >
                       Download
                     </Button>
-                  </div>
+                  </div> */}
                   <div className="glass-card rounded-lg p-3 flex justify-between">
-                    <span>Version 2.0</span>
+                    <span>Version 1.2 (Legacy)</span>
                     <Button 
                       variant="ghost" 
                       size="sm" 
@@ -135,8 +135,8 @@ const Download = () => {
                       Download
                     </Button>
                   </div>
-                  <div className="glass-card rounded-lg p-3 flex justify-between">
-                    <span>Version 1.8 (Legacy)</span>
+                  {/* <div className="glass-card rounded-lg p-3 flex justify-between">
+                    <span>Version 1.2 (Legacy)</span>
                     <Button 
                       variant="ghost" 
                       size="sm" 
@@ -145,7 +145,7 @@ const Download = () => {
                     >
                       Download
                     </Button>
-                  </div>
+                  </div> */}
                 </div>
               )}
             </div>
