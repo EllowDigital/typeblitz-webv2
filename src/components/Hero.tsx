@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Download } from 'lucide-react';
+import { DownloadIcon, ExternalLink } from 'lucide-react';
 
 const Hero = () => {
   const [greeting, setGreeting] = useState('');
@@ -16,6 +16,13 @@ const Hero = () => {
     
     setGreeting(greeting);
   }, []);
+
+  const scrollToDownload = () => {
+    const downloadSection = document.getElementById('download');
+    if (downloadSection) {
+      downloadSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center py-20 overflow-hidden">
@@ -40,13 +47,21 @@ const Hero = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button className="bg-neon text-dark hover:bg-neon/90 btn-glow px-8 py-6 text-lg flex items-center gap-2">
-            <Download className="w-5 h-5" />
+          <Button 
+            className="bg-neon text-dark hover:bg-neon/90 btn-glow px-8 py-6 text-lg flex items-center gap-2"
+            onClick={scrollToDownload}
+          >
+            <DownloadIcon className="w-5 h-5" />
             Download Now
           </Button>
           
-          <Button variant="outline" className="border-white/20 hover:bg-white/5 px-8 py-6 text-lg">
-            Learn More
+          <Button 
+            variant="outline" 
+            className="border-white/20 hover:bg-white/5 px-8 py-6 text-lg flex items-center gap-2"
+            onClick={() => window.open("https://ellowdigitals.com", "_blank")}
+          >
+            <ExternalLink className="w-4 h-4" />
+            Visit EllowDigitals
           </Button>
         </div>
         

@@ -1,11 +1,13 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Download as DownloadIcon, ChevronDown } from 'lucide-react';
+import { DownloadIcon, ChevronDown } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const Download = () => {
   const [showOlderVersions, setShowOlderVersions] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const { toast } = useToast();
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,6 +30,27 @@ const Download = () => {
       }
     };
   }, []);
+
+  const handleDownload = (version: string) => {
+    // This would normally link to your actual downloadable file
+    // For demo purposes, we'll show a toast notification
+    toast({
+      title: "Download started",
+      description: `TypeBlitz ${version} is being downloaded. Thank you for choosing TypeBlitz!`,
+      duration: 5000,
+    });
+    
+    // Simulate download start with a dummy file
+    // In a real app, you would link to actual files
+    setTimeout(() => {
+      const link = document.createElement('a');
+      link.href = `#download-${version.replace(/\s/g, '-').toLowerCase()}`;
+      link.download = `TypeBlitz-${version}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }, 1000);
+  };
 
   return (
     <section 
@@ -57,17 +80,24 @@ const Download = () => {
             </div>
             
             <h3 className="text-2xl font-bold text-center mb-2">TypeBlitz v2.6</h3>
-            <p className="text-center text-muted-foreground mb-1">Latest Release • May 05, 2025</p>
+            <p className="text-center text-muted-foreground mb-1">Latest Release • May 10, 2025</p>
             <p className="text-center text-sm text-neon">100% Free | No Ads | No Subscription</p>
           </div>
           
           <div className="space-y-4">
-            <Button className="w-full bg-neon text-dark hover:bg-neon/90 py-6 text-lg flex items-center justify-center gap-2">
+            <Button 
+              className="w-full bg-neon text-dark hover:bg-neon/90 py-6 text-lg flex items-center justify-center gap-2"
+              onClick={() => handleDownload("v2.6")}
+            >
               <DownloadIcon className="w-5 h-5" />
               Download v2.6
             </Button>
             
-            <Button variant="outline" className="w-full border-white/20 hover:bg-white/5 py-6 text-lg">
+            <Button 
+              variant="outline" 
+              className="w-full border-white/20 hover:bg-white/5 py-6 text-lg"
+              onClick={() => handleDownload("v2.4 (Stable)")}
+            >
               Download v2.4 (Stable)
             </Button>
             
@@ -85,19 +115,34 @@ const Download = () => {
                 <div className="mt-4 space-y-3 animate-fade-in">
                   <div className="glass-card rounded-lg p-3 flex justify-between">
                     <span>Version 2.2</span>
-                    <Button variant="ghost" size="sm" className="text-neon hover:text-neon/70">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-neon hover:text-neon/70"
+                      onClick={() => handleDownload("v2.2")}
+                    >
                       Download
                     </Button>
                   </div>
                   <div className="glass-card rounded-lg p-3 flex justify-between">
                     <span>Version 2.0</span>
-                    <Button variant="ghost" size="sm" className="text-neon hover:text-neon/70">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-neon hover:text-neon/70"
+                      onClick={() => handleDownload("v2.0")}
+                    >
                       Download
                     </Button>
                   </div>
                   <div className="glass-card rounded-lg p-3 flex justify-between">
                     <span>Version 1.8 (Legacy)</span>
-                    <Button variant="ghost" size="sm" className="text-neon hover:text-neon/70">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-neon hover:text-neon/70"
+                      onClick={() => handleDownload("v1.8 (Legacy)")}
+                    >
                       Download
                     </Button>
                   </div>

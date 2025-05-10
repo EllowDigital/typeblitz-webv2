@@ -43,8 +43,8 @@ export default {
         'popover-foreground': 'hsl(var(--popover-foreground))',
         card: 'hsl(var(--card))',
         'card-foreground': 'hsl(var(--card-foreground))',
-        neon: '#007bff', // Changed from #E6FF00 to #007bff
-        dark: '#000000', // Changed to pure black
+        neon: '#007bff', // Blue color as requested
+        dark: '#000000', // Pure black
         light: '#FFFFFF', // Pure white
       },
       borderRadius: {
@@ -74,8 +74,8 @@ export default {
           "50%": { transform: "translateY(-10px)" }
         },
         "glow": {
-          "0%, 100%": { boxShadow: "0 0 5px 2px rgba(230, 255, 0, 0.3)" },
-          "50%": { boxShadow: "0 0 15px 5px rgba(230, 255, 0, 0.6)" }
+          "0%, 100%": { boxShadow: "0 0 5px 2px rgba(0, 123, 255, 0.3)" },
+          "50%": { boxShadow: "0 0 15px 5px rgba(0, 123, 255, 0.6)" }
         },
         "typing": {
           "0%": { width: "0%" },
@@ -83,7 +83,7 @@ export default {
         },
         "blinking-cursor": {
           "0%, 100%": { borderColor: "transparent" },
-          "50%": { borderColor: "#E6FF00" }
+          "50%": { borderColor: "#007bff" }
         },
         "spin-slow": {
           "0%": { transform: "rotate(0deg)" },
