@@ -1,7 +1,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Download, ChevronDown } from 'lucide-react';
+import { Download as DownloadIcon, ChevronDown } from 'lucide-react';
 
 const Download = () => {
   const [showOlderVersions, setShowOlderVersions] = useState(false);
@@ -63,7 +63,7 @@ const Download = () => {
           
           <div className="space-y-4">
             <Button className="w-full bg-neon text-dark hover:bg-neon/90 py-6 text-lg flex items-center justify-center gap-2">
-              <Download className="w-5 h-5" />
+              <DownloadIcon className="w-5 h-5" />
               Download v2.6
             </Button>
             
