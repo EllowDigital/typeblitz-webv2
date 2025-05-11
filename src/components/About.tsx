@@ -1,24 +1,23 @@
-
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 const About = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
+          entry.target.classList.add("animate-fade-in");
         }
       },
       { threshold: 0.1 }
     );
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-    
+
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
@@ -27,31 +26,32 @@ const About = () => {
   }, []);
 
   return (
-    <section 
-      id="about" 
-      ref={sectionRef}
-      className="section-padding relative opacity-0"
-    >
+    <section id="about" ref={sectionRef} className="section-padding relative opacity-0">
       <div className="container px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6 text-left">
-            <h2 className="text-3xl md:text-4xl font-bold leading-tight text-gradient">About TypeBlitz</h2>
-            
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight text-gradient">
+              About TypeBlitz
+            </h2>
+
             <p className="text-lg text-muted-foreground">
-              TypeBlitz is a free, offline typing app designed to accelerate your speed and precision through smart exercises, AI feedback, and minimal distractions.
+              TypeBlitz is a free, offline typing app designed to accelerate your speed and
+              precision through smart exercises, AI feedback, and minimal distractions.
             </p>
-            
+
             <p className="text-lg text-muted-foreground">
-              Whether you're a professional looking to boost productivity or a beginner aiming to master typing, TypeBlitz adapts to your skill level and provides personalized feedback to help you improve quickly.
+              Whether you're a professional looking to boost productivity or a beginner aiming to
+              master typing, TypeBlitz adapts to your skill level and provides personalized feedback
+              to help you improve quickly.
             </p>
-            
+
             <div className="inline-flex glass px-4 py-2 rounded-full items-center gap-2">
               <span>Crafted with</span>
               <span className="text-red-500 animate-pulse">❤️</span>
               <span>by EllowDigital</span>
             </div>
           </div>
-          
+
           <div className="relative">
             <div className="glass rounded-2xl p-1 relative z-10 transform rotate-1 hover-lift">
               <div className="bg-dark rounded-xl overflow-hidden">

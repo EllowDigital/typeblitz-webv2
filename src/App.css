@@ -48,7 +48,9 @@
   background-color: hsl(0, 0%, 5%);
   color: white;
   box-shadow: 0 0 20px rgba(88, 112, 172, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .card:hover {

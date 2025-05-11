@@ -1,19 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Download,
-  FileUp,
-  FilePlus,
-  File,
-  ShieldCheck,
-  Check,
-} from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Download, FileUp, FilePlus, File, ShieldCheck, Check } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Installation = () => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -42,11 +30,7 @@ const Installation = () => {
   }, []);
 
   return (
-    <section
-      id="installation"
-      ref={sectionRef}
-      className="section-padding relative opacity-0"
-    >
+    <section id="installation" ref={sectionRef} className="section-padding relative opacity-0">
       <div className="container px-4 md:px-6">
         <div className="text-center mb-16">
           <h2 className="section-title">How to Install TypeBlitz</h2>
@@ -62,9 +46,7 @@ const Installation = () => {
               <Download className="w-5 h-5 text-neon" />
             </div>
             <h3 className="text-lg font-medium mb-2">Step 1</h3>
-            <p className="text-sm text-muted-foreground">
-              Download the ZIP file from above
-            </p>
+            <p className="text-sm text-muted-foreground">Download the ZIP file from above</p>
           </div>
 
           {/* Step 2 */}
@@ -73,9 +55,7 @@ const Installation = () => {
               <FileUp className="w-5 h-5 text-neon" />
             </div>
             <h3 className="text-lg font-medium mb-2">Step 2</h3>
-            <p className="text-sm text-muted-foreground">
-              Unzip the folder to your system
-            </p>
+            <p className="text-sm text-muted-foreground">Unzip the folder to your system</p>
           </div>
 
           {/* Step 3 */}
@@ -98,13 +78,11 @@ const Installation = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button className="text-neon hover:text-neon/80 ml-1">
-                      ?
-                    </button>
+                    <button className="text-neon hover:text-neon/80 ml-1">?</button>
                   </TooltipTrigger>
                   <TooltipContent className="w-60 p-3">
-                    TypeBlitz might be flagged because it's not digitally
-                    signed, but it's completely safe and contains no malware.
+                    TypeBlitz might be flagged because it's not digitally signed, but it's
+                    completely safe and contains no malware.
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -117,9 +95,7 @@ const Installation = () => {
               <Check className="w-5 h-5 text-neon" />
             </div>
             <h3 className="text-lg font-medium mb-2">Step 5</h3>
-            <p className="text-sm text-muted-foreground">
-              Enjoy full access — completely free
-            </p>
+            <p className="text-sm text-muted-foreground">Enjoy full access — completely free</p>
           </div>
         </div>
       </div>

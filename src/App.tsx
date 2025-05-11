@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
@@ -16,21 +15,21 @@ const queryClient = new QueryClient();
 // This component handles scrolling to hash sections after navigation
 const ScrollToHashElement = () => {
   const location = useLocation();
-  
+
   useEffect(() => {
     const hash = location.hash;
     if (hash) {
       setTimeout(() => {
         const element = document.querySelector(hash);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: "smooth" });
         }
       }, 100);
     } else {
       window.scrollTo(0, 0);
     }
   }, [location]);
-  
+
   return null;
 };
 

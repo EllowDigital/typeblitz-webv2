@@ -1,17 +1,17 @@
-import { useRef, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { useRef, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   const footerRef = useRef<HTMLElement>(null);
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
+          entry.target.classList.add("animate-fade-in");
         }
       },
       { threshold: 0.1 }
@@ -32,23 +32,48 @@ const Footer = () => {
           {/* Logo & About */}
           <div>
             <Link to="/" className="flex items-center mb-4">
-              <img src="/images/TypeBlitz.png" alt="TypeBlitz Logo" className="w-10 h-10 rounded-full mr-3" />
+              <img
+                src="/images/TypeBlitz.png"
+                alt="TypeBlitz Logo"
+                className="w-10 h-10 rounded-full mr-3"
+              />
               <span className="text-xl font-semibold text-white">TypeBlitz</span>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
-              Elevate your typing speed and accuracy with TypeBlitz — built for modern professionals.
+              Elevate your typing speed and accuracy with TypeBlitz — built for modern
+              professionals.
             </p>
             <div className="flex gap-4">
-              <a href="https://facebook.com/ellowdigital" target="_blank" rel="noopener noreferrer" className="hover:text-neon text-muted-foreground">
+              <a
+                href="https://facebook.com/ellowdigital"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-neon text-muted-foreground"
+              >
                 <Facebook size={18} />
               </a>
-              <a href="https://twitter.com/ellowdigital" target="_blank" rel="noopener noreferrer" className="hover:text-neon text-muted-foreground">
+              <a
+                href="https://twitter.com/ellowdigital"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-neon text-muted-foreground"
+              >
                 <Twitter size={18} />
               </a>
-              <a href="https://instagram.com/ellowdigital" target="_blank" rel="noopener noreferrer" className="hover:text-neon text-muted-foreground">
+              <a
+                href="https://instagram.com/ellowdigital"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-neon text-muted-foreground"
+              >
                 <Instagram size={18} />
               </a>
-              <a href="https://linkedin.com/company/ellowdigital" target="_blank" rel="noopener noreferrer" className="hover:text-neon text-muted-foreground">
+              <a
+                href="https://linkedin.com/company/ellowdigital"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-neon text-muted-foreground"
+              >
                 <Linkedin size={18} />
               </a>
             </div>
@@ -58,14 +83,20 @@ const Footer = () => {
           <div>
             <h3 className="font-medium text-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {['about', 'features', 'screenshots', 'download', 'contact'].map((section) => (
+              {["about", "features", "screenshots", "download", "contact"].map((section) => (
                 <li key={section}>
                   {isHomePage ? (
-                    <a href={`#${section}`} className="text-sm text-muted-foreground hover:text-neon transition-colors capitalize">
+                    <a
+                      href={`#${section}`}
+                      className="text-sm text-muted-foreground hover:text-neon transition-colors capitalize"
+                    >
                       {section}
                     </a>
                   ) : (
-                    <Link to={`/#${section}`} className="text-sm text-muted-foreground hover:text-neon transition-colors capitalize">
+                    <Link
+                      to={`/#${section}`}
+                      className="text-sm text-muted-foreground hover:text-neon transition-colors capitalize"
+                    >
                       {section}
                     </Link>
                   )}
@@ -79,13 +110,28 @@ const Footer = () => {
             <h3 className="font-medium text-white mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/privacy" className="text-sm text-muted-foreground hover:text-neon transition-colors">Privacy Policy</Link>
+                <Link
+                  to="/privacy"
+                  className="text-sm text-muted-foreground hover:text-neon transition-colors"
+                >
+                  Privacy Policy
+                </Link>
               </li>
               <li>
-                <Link to="/terms" className="text-sm text-muted-foreground hover:text-neon transition-colors">Terms of Use</Link>
+                <Link
+                  to="/terms"
+                  className="text-sm text-muted-foreground hover:text-neon transition-colors"
+                >
+                  Terms of Use
+                </Link>
               </li>
               <li>
-                <Link to="/eula" className="text-sm text-muted-foreground hover:text-neon transition-colors">EULA</Link>
+                <Link
+                  to="/eula"
+                  className="text-sm text-muted-foreground hover:text-neon transition-colors"
+                >
+                  EULA
+                </Link>
               </li>
             </ul>
           </div>
@@ -94,7 +140,8 @@ const Footer = () => {
           <div>
             <h3 className="font-medium text-white mb-4">Creator</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Developed by EllowDigital, creators of innovative productivity tools for the digital age.
+              Developed by EllowDigital, creators of innovative productivity tools for the digital
+              age.
             </p>
             <a
               href="https://ellowdigitals.me/"
