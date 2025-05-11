@@ -1,5 +1,14 @@
+// main.tsx
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import routes from "./routes";
 import "./index.css";
 
-createRoot(document.getElementById("root")!).render(<App />);
+const router = createBrowserRouter(routes, {
+  future: {
+    v7_startTransition: true,
+    v7_relativeSplatPath: true,
+  },
+});
+
+createRoot(document.getElementById("root")!).render(<RouterProvider router={router} />);

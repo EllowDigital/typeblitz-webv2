@@ -4,17 +4,17 @@ const screenshotData = [
   {
     title: "Dashboard Overview",
     description: "Track your typing goals and progress at a glance.",
-    image: "/images/screenshots/dashboard.webp",
+    image: "/assets/images/screenshots/dashboard.webp",
   },
   {
     title: "Practice Mode: Words",
     description: "Sharpen your typing skills with word-based exercises and real-time feedback.",
-    image: "/images/screenshots/practice-words.webp",
+    image: "/assets/images/screenshots/practice-words.webp",
   },
   {
     title: "Practice Mode: Paragraphs",
     description: "Improve flow and accuracy with paragraph-level practice.",
-    image: "/images/screenshots/practice-paragraph.webp",
+    image: "/assets/images/screenshots/practice-paragraph.webp",
   },
   {
     title: "Performance Stats",
@@ -24,12 +24,12 @@ const screenshotData = [
   {
     title: "Auto Update Check",
     description: "Stay up to date effortlessly with a single click.",
-    image: "/images/screenshots/check-update.webp",
+    image: "/assets/images/screenshots/check-update.webp",
   },
   {
     title: "Update Status Panel",
     description: "Monitor update progress and version info with ease.",
-    image: "/images/screenshots/update-status.webp",
+    image: "/assets/images/screenshots/update-status.webp",
   },
 ];
 

@@ -19,7 +19,7 @@ const Preloader = () => {
       <div className="relative w-32 h-32 mb-6">
         {/* ✅ Add your GIF here */}
         <img
-          src="images/TypeBlitz-gif.gif"
+          src="/assets/TypeBlitz-gif.gif"
           alt="Loading..."
           className="w-full h-full object-contain"
         />

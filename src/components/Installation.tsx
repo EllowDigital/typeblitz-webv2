@@ -9,8 +9,7 @@ const Installation = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
+      ([entry]) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("animate-fade-in");
         }
@@ -18,14 +17,11 @@ const Installation = () => {
       { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    const currentRef = sectionRef.current;
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
+      if (currentRef) observer.unobserve(currentRef);
     };
   }, []);
 
@@ -33,74 +29,90 @@ const Installation = () => {
     <section id="installation" ref={sectionRef} className="section-padding relative opacity-0">
       <div className="container px-4 md:px-6">
         <div className="text-center mb-16">
-          <h2 className="section-title">How to Install TypeBlitz</h2>
+          <h2 className="section-title">Install TypeBlitz in 5 Easy Steps</h2>
           <p className="section-subtitle">
-            Follow these simple steps to get started with TypeBlitz
+            Quickly set up and start using TypeBlitz in just a few clicks.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-4xl mx-auto">
           {/* Step 1 */}
-          <div className="neumorph rounded-xl p-6 text-center">
-            <div className="w-12 h-12 rounded-full glass flex items-center justify-center mx-auto mb-4 border border-neon/20">
-              <Download className="w-5 h-5 text-neon" />
-            </div>
-            <h3 className="text-lg font-medium mb-2">Step 1</h3>
-            <p className="text-sm text-muted-foreground">Download the ZIP file from above</p>
-          </div>
+          <Step
+            icon={<Download className="w-5 h-5 text-neon" />}
+            title="Step 1"
+            description="Download the ZIP file from the link above."
+          />
 
           {/* Step 2 */}
-          <div className="neumorph rounded-xl p-6 text-center">
-            <div className="w-12 h-12 rounded-full glass flex items-center justify-center mx-auto mb-4 border border-neon/20">
-              <FileUp className="w-5 h-5 text-neon" />
-            </div>
-            <h3 className="text-lg font-medium mb-2">Step 2</h3>
-            <p className="text-sm text-muted-foreground">Unzip the folder to your system</p>
-          </div>
+          <Step
+            icon={<FileUp className="w-5 h-5 text-neon" />}
+            title="Step 2"
+            description="Extract the ZIP file to a folder on your computer."
+          />
 
           {/* Step 3 */}
-          <div className="neumorph rounded-xl p-6 text-center">
-            <div className="w-12 h-12 rounded-full glass flex items-center justify-center mx-auto mb-4 border border-neon/20">
-              <FilePlus className="w-5 h-5 text-neon" />
-            </div>
-            <h3 className="text-lg font-medium mb-2">Step 3</h3>
-            <p className="text-sm text-muted-foreground">Open TypeBlitz.exe</p>
-          </div>
+          <Step
+            icon={<FilePlus className="w-5 h-5 text-neon" />}
+            title="Step 3"
+            description='Double-click "TypeBlitz.exe" to launch the app.'
+          />
 
           {/* Step 4 */}
-          <div className="neumorph rounded-xl p-6 text-center">
-            <div className="w-12 h-12 rounded-full glass flex items-center justify-center mx-auto mb-4 border border-neon/20">
-              <ShieldCheck className="w-5 h-5 text-neon" />
-            </div>
-            <h3 className="text-lg font-medium mb-2">Step 4</h3>
-            <p className="text-sm text-muted-foreground">
-              Allow through antivirus — click "More Info" → "Run Anyway"
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button className="text-neon hover:text-neon/80 ml-1">?</button>
-                  </TooltipTrigger>
-                  <TooltipContent className="w-60 p-3">
-                    TypeBlitz might be flagged because it's not digitally signed, but it's
-                    completely safe and contains no malware.
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </p>
-          </div>
+          <Step
+            icon={<ShieldCheck className="w-5 h-5 text-neon" />}
+            title="Step 4"
+            description={
+              <>
+                If Windows shows a warning, click <strong>"More Info" → "Run Anyway"</strong>.
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        className="text-neon hover:text-neon/80 ml-1"
+                        aria-label="Why this message appears"
+                      >
+                        ?
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="w-64 p-3">
+                      Windows might warn you because the app isn't digitally signed. Don’t worry —
+                      TypeBlitz is 100% safe and clean.
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </>
+            }
+          />
 
           {/* Step 5 */}
-          <div className="neumorph rounded-xl p-6 text-center">
-            <div className="w-12 h-12 rounded-full glass flex items-center justify-center mx-auto mb-4 border border-neon/20">
-              <Check className="w-5 h-5 text-neon" />
-            </div>
-            <h3 className="text-lg font-medium mb-2">Step 5</h3>
-            <p className="text-sm text-muted-foreground">Enjoy full access — completely free</p>
-          </div>
+          <Step
+            icon={<Check className="w-5 h-5 text-neon" />}
+            title="Step 5"
+            description="You're all set — enjoy using TypeBlitz completely free!"
+          />
         </div>
       </div>
     </section>
   );
 };
+
+// Reusable Step component
+const Step = ({
+  icon,
+  title,
+  description,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: React.ReactNode;
+}) => (
+  <div className="neumorph rounded-xl p-6 text-center">
+    <div className="w-12 h-12 rounded-full glass flex items-center justify-center mx-auto mb-4 border border-neon/20">
+      {icon}
+    </div>
+    <h3 className="text-lg font-semibold mb-2">{title}</h3>
+    <p className="text-sm text-muted-foreground">{description}</p>
+  </div>
+);
 
 export default Installation;

@@ -2,23 +2,62 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { User, Mail, MessageSquare } from "lucide-react";
+import { User, Mail, MessageSquare, Target } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import axios from "axios";
+
+// Reusable input component with icon and error message
+const InputField = ({
+  icon,
+  name,
+  type,
+  placeholder,
+  value,
+  onChange,
+  error,
+}: {
+  icon: React.ReactNode;
+  name: string;
+  type: string;
+  placeholder: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  error?: string;
+}) => (
+  <div className="space-y-1">
+    <div className="relative">
+      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">{icon}</div>
+      <Input
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="pl-10 bg-dark border-white/10 focus-visible:ring-neon"
+        required
+      />
+    </div>
+    {error && <p className="text-sm text-red-500">{error}</p>}
+  </div>
+);
 
 const Contact = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    subject: "",
     message: "",
   });
-  const { toast } = useToast();
-  const sectionRef = useRef<HTMLElement>(null);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const sectionRef = useRef<HTMLElement>(null);
+  const { toast } = useToast();
+
+  // Fade-in animation on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
+      ([entry]) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("animate-fade-in");
         }
@@ -26,37 +65,79 @@ const Contact = () => {
       { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  // Validate form fields
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i.test(formData.email)) {
+      newErrors.email = "Invalid email format";
+    }
+
+    if (!formData.subject) newErrors.subject = "Subject is required";
+    if (!formData.message.trim()) newErrors.message = "Message is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Handle input change
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  // Submit form and send email
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    const payload = {
+      ...formData,
+      _subject: "📩 New TypeBlitz - Submission",
+      _template: "table",
+      _autoresponse: `Hi ${formData.name},
+
+Thanks for reaching out to us at TypeBlitz! 🎉
+
+We’ve received your message and will get back to you as soon as possible.
+
+- Subject: ${formData.subject}
+- Message: ${formData.message}
+
+Regards,  
+The EllowDigital Team  
+www.ellowdigitals.me`,
+      _replyto: formData.email,
+      _cc: "sarwanyadav6174@gmail.com",
+      _captcha: "false",
+    };
+
+    try {
+      await axios.post("https://formsubmit.co/ajax/ellowdigitals@gmail.com", payload);
+      toast({ title: "Message Sent!", description: "We'll get back to you shortly." });
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("Form submission error:", error);
       toast({
-        title: "Message sent!",
-        description: "We'll get back to you as soon as possible.",
+        title: "Submission Failed",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive",
       });
-      setFormData({ name: "", email: "", message: "" });
-    }, 1500);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -68,47 +149,57 @@ const Contact = () => {
       <div className="container px-4 md:px-6">
         <div className="text-center mb-16">
           <h2 className="section-title">Get in Touch</h2>
-          <p className="section-subtitle">
-            Have questions or feedback? We'd love to hear from you!
-          </p>
+          <p className="section-subtitle">We’d love to hear your thoughts!</p>
         </div>
 
         <div className="max-w-lg mx-auto glass rounded-2xl p-6 md:p-8 border border-neon/20">
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
+            <InputField
+              icon={<User className="w-5 h-5" />}
+              name="name"
+              type="text"
+              placeholder="Your Name"
+              value={formData.name}
+              onChange={handleChange}
+              error={errors.name}
+            />
+
+            <InputField
+              icon={<Mail className="w-5 h-5" />}
+              name="email"
+              type="email"
+              placeholder="Your Email"
+              value={formData.email}
+              onChange={handleChange}
+              error={errors.email}
+            />
+
+            <div className="space-y-1">
               <div className="relative">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                  <User className="w-5 h-5" />
+                  <Target className="w-5 h-5" />
                 </div>
-                <Input
-                  name="name"
-                  value={formData.name}
+                <select
+                  name="subject"
+                  value={formData.subject}
                   onChange={handleChange}
-                  placeholder="Your Name"
-                  className="pl-10 bg-dark border-white/10 focus-visible:ring-neon"
+                  className="pl-10 bg-dark border-white/10 focus-visible:ring-neon w-full py-2 rounded"
                   required
-                />
+                >
+                  <option value="">Please select a subject</option>
+                  <option value="feedback">General Feedback</option>
+                  <option value="suggestion">Feature Suggestion</option>
+                  <option value="app_update_problem">Issue After App Update</option>
+                  <option value="app_fails_on_start">Application Fails to Launch</option>
+                  <option value="network_error">Network Connectivity Issue</option>
+                  <option value="typing_stats_not_saved">Typing Stats Not Saving</option>
+                  <option value="dashboard_not_working">Dashboard Not Functioning</option>
+                </select>
               </div>
+              {errors.subject && <p className="text-sm text-red-500">{errors.subject}</p>}
             </div>
 
-            <div className="space-y-2">
-              <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <Input
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Your Email"
-                  className="pl-10 bg-dark border-white/10 focus-visible:ring-neon"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
+            <div className="space-y-1">
               <div className="relative">
                 <div className="absolute left-3 top-3 text-muted-foreground">
                   <MessageSquare className="w-5 h-5" />
@@ -122,6 +213,7 @@ const Contact = () => {
                   required
                 />
               </div>
+              {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
             </div>
 
             <Button
@@ -130,9 +222,9 @@ const Contact = () => {
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                <>
+                <span className="flex items-center justify-center gap-2">
                   <svg
-                    className="animate-spin -ml-1 mr-2 h-4 w-4 text-dark"
+                    className="animate-spin h-4 w-4 text-dark"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -148,11 +240,11 @@ const Contact = () => {
                     <path
                       className="opacity-75"
                       fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                     ></path>
                   </svg>
                   Sending...
-                </>
+                </span>
               ) : (
                 "Send Message"
               )}

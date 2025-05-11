@@ -33,7 +33,7 @@ const Footer = () => {
           <div>
             <Link to="/" className="flex items-center mb-4">
               <img
-                src="/images/TypeBlitz.png"
+                src="/assets/images/TypeBlitz.png"
                 alt="TypeBlitz Logo"
                 className="w-10 h-10 rounded-full mr-3"
               />
