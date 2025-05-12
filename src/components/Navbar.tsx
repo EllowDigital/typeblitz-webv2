@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, Menu, X } from "lucide-react";
@@ -51,7 +52,7 @@ const Navbar = () => {
         <div className="flex items-center space-x-2">
           <Link to="/" className="flex items-center space-x-2">
             <img
-              src="/assets/images/TypeBlitz.png" // Update this path to your actual logo location
+              src="/assets/images/TypeBlitz.png"
               alt="TypeBlitz Logo"
               className="w-9 h-9 object-contain rounded-full"
             />
@@ -132,16 +133,26 @@ const Navbar = () => {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-4">
-          <Button
-            variant="outline"
-            className="items-center gap-2 border-neon text-neon hover:bg-neon hover:text-black"
-            onClick={() => (isHomePage ? scrollToSection("download") : null)}
-            as={isHomePage ? undefined : Link}
-            to={isHomePage ? undefined : "/#download"}
-          >
-            <Download className="w-4 h-4" />
-            <span>Download v1.4</span>
-          </Button>
+          {isHomePage ? (
+            <Button
+              variant="outline"
+              className="items-center gap-2 border-neon text-neon hover:bg-neon hover:text-black"
+              onClick={() => scrollToSection("download")}
+            >
+              <Download className="w-4 h-4" />
+              <span>Download v1.4</span>
+            </Button>
+          ) : (
+            <Link to="/#download">
+              <Button
+                variant="outline"
+                className="items-center gap-2 border-neon text-neon hover:bg-neon hover:text-black"
+              >
+                <Download className="w-4 h-4" />
+                <span>Download v1.4</span>
+              </Button>
+            </Link>
+          )}
 
           <Button
             variant="ghost"
