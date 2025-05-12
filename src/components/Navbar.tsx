@@ -133,6 +133,7 @@ const Navbar = () => {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-4">
+<<<<<<< Updated upstream
           {isHomePage ? (
             <Button
               variant="outline"
@@ -153,6 +154,18 @@ const Navbar = () => {
               </Button>
             </Link>
           )}
+=======
+          <Button
+            variant="outline"
+            className="items-center gap-2 border-neon text-neon hover:bg-neon hover:text-black"
+            onClick={() => (isHomePage ? scrollToSection("download") : null)}
+            as={isHomePage ? undefined : Link}
+            to={isHomePage ? undefined : "/#download"}
+          >
+            <Download className="w-4 h-4" />
+            <span>Download v1.2</span>
+          </Button>
+>>>>>>> Stashed changes
 
           <Button
             variant="ghost"
