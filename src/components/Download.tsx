@@ -1,16 +1,15 @@
-
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { DownloadIcon, ChevronDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-const LATEST_VERSION = "v1.4-stable";  // Updated version
-const LATEST_VERSION_DISPLAY = "v1.4-stable";  // Updated version
-const RELEASE_DATE = "May 14, 2025";
+const LATEST_VERSION = "v1.4-stable"; // Updated version
+const LATEST_VERSION_DISPLAY = "v1.4-stable"; // Updated version
+const RELEASE_DATE = "May 20, 2025";
 
 const olderVersions = [
-  { version: "v1.2-beta", label: "Version 1.2 (Beta)" },
   { version: "v1.4-beta", label: "Version 1.4 (Beta)" },
+  { version: "v1.2-beta", label: "Version 1.2 (Beta)" },
   // Add additional versions as needed
 ];
 
